@@ -15,7 +15,7 @@ coverImage: https://psychologistmimi.files.wordpress.com/2015/06/penguins-at-nig
 In this post I will talk about managing workspace access for certain users in Linux environments.
 We will set a workspace where some guests will be able to work in their amazing project.
 These users won't have access to the files outside of their shared workspace.
-Finally we will use **Linux acl's** to manage user permissions inside our secured directory. <!--- secured directory == workspace? --->
+Finally we will use **Linux ACL** to manage user permissions inside their workspace.
 
 {% alert success no-icon %}
 This post resolves a real issue that I had few days ago.
@@ -30,7 +30,7 @@ I need to allow a new user who is developing a new website into our development 
 Doing this is very easy, we only need to create a user in our server… but here comes the problem, this user would be able to see other users' home folders, config folders, etc.
 
 ``` bash
-ssh developerguest1@IP_ADDRES_OR_OUT_TEST_MACHINE
+ssh developerguest1@IP_ADDRES_OF_OUR_TEST_MACHINE
 $ cd /home/john/
 $ ls
 john_files
@@ -225,7 +225,7 @@ other::---
 ```
 
 By default, the folder is owned by www-data as we set before.
-Using ACL's we are going to configure it for each new file will have read and execution permission by default. <!--- configure it > el qué? --->
+Using ACL's we are going to configure a new file creation behaviour, for each new file created by our developers, it will have read and execution permission by default.
 We do this because if devloperguest1 creates a file, www-data won't be able to read it.
 ``` bash
 setfacl -R -d -m  g::rwx /var/developers/developerguest1_website
